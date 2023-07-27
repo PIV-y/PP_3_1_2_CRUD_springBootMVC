@@ -15,7 +15,6 @@ public class UsersController {
         this.userService = userService;
     }
 
-// GET
     @GetMapping()
     public String printStart (Model model) {
         model.addAttribute("messages", "HEllO");
@@ -28,7 +27,6 @@ public class UsersController {
         return "users";
     }
 
-// POST
     @GetMapping("/user_info")
     public String addNewUserInfo (Model model) {
         model.addAttribute("user", new User());
@@ -43,16 +41,14 @@ public class UsersController {
         return "redirect:/user_list";
     }
 
-// GET USER FOR CHANGES
-    @RequestMapping("/{id}/update")
+    @PostMapping ("/{id}/update")
     public String editUser(Model model, @RequestParam("id") int id) {
         model.addAttribute("user", userService.getUserById(id));
         System.out.println(model.toString());
         return "edit";
     }
 
-// DELETE
-    @RequestMapping("/clean_table")
+    @GetMapping("/clean_table")
     public String deleteAllUsers () {
         userService.dropData();
         return  "redirect:/user_list";
@@ -64,7 +60,6 @@ public class UsersController {
         return "redirect:/user_list";
     }
 
-// PATCH
     @PatchMapping ("/change")
     public String update (@ModelAttribute("user") User user) {
         System.out.println("Обновленный юзер пришел: " + user.toString());
